@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {addName} from './nameSlice'
+import {addName, removeName} from './nameSlice'
 
 function Name() {
     const dispatch = useDispatch()
-    const name = useSelector(state => state.nameReducer.name)
+    const names = useSelector(state => state.nameReducer.names)
     const [text, setText] = useState('')
 
     const handleClick = () => {
@@ -18,7 +18,15 @@ function Name() {
 
         <br/><br/>
         <ul>
-            {name.length>0 && name.map(item => <li key={item}>{item}</li>)}
+            {names.length>0 && names.map(item => {
+                return (
+                    <li key={item}>
+                        {item} 
+                        <button onClick={() => dispatch(removeName(item))} style={{marginLeft: '10px', marginBottom: '10px'}}>X</button>
+                        <button style={{marginLeft: '10px', marginBottom: '10px'}}>U</button>
+                    </li>
+                )
+            })}
         </ul>
     </div>
   )
